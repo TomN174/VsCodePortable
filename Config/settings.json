@@ -1,0 +1,8 @@
+{
+    "workbench.sideBar.location": "right",
+    "files.defaultLanguage": "powershell",
+    "workbench.iconTheme": "vscode-icons",
+    "todo-tree.regex.regexCaseSensitive": false,
+    "todo-tree.tree.showCountsInTree": true,
+    "todo-tree.general.showActivityBarBadge": true
+}

@@ -1,0 +1,95 @@
+﻿{
+	// Place your snippets for powershell here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"ForEachOneLine": {
+		"prefix": "tnforeach-oneline",
+		"body": [
+			"",
+			"foreach (\\$${1:Item} in \\$${1:Item}s) {",
+			"# Write-Progress -Id ${2:$RANDOM} -Activity \"Processing \\$(\\$${1:Item})\" -Status \"Waiting for \\$(\\$${1:Item})\" -CurrentOperation \"executing something on \\$(\\$${1:Item})\" -PercentComplete ([array]::indexof(\\$${1:Item}s, \\$${1:Item}) / \\$${1:Item}s.count * 100)",
+			"Write-Host \\$${1:Item} -ForegroundColor Cyan",
+			"$TM_SELECTED_TEXT",
+			"$0",
+			"}",
+		],
+		"description": "TomForEach"
+	},
+	"TomLogDate": {
+		"prefix": "tnLogdate",
+		"body": [
+			"\\$brLogDate =  '{0:yyyy.MM.dd_hh.mm.ss}' -f (Get-Date)"
+		],
+		"description": "TomLogDate"
+	},
+	"TomSQLDate": {
+		"prefix": "tnSqlDate",
+		"body": [
+			"Get-Date -UFormat \"%Y-%m-%d %H:%M:%S\""
+		],
+		"description": "TomSqlDate"
+	},
+	"TomCalculateFormat-Table": {
+		"prefix": "tnCalculateAttribute",
+		"body": [
+			" @{Name='${1:AttribName}';Expression={\\$_.${2:AttribValue}}} "
+		],
+		"description": "TomCalculate Attribute for select or Format-Table"
+	},
+	"TomCalculateLastLogon": {
+		"prefix": "tnCalculateLastLogon",
+		"body": [
+			"@{ N = 'LastLogon'; E = { [DateTime]::FromFileTimeUtc(\\$_.LastLogonTimeStamp) } }"
+		],
+		"description": "TomCalculateLastLogon"
+	},
+	"WhoAmIGroups": {
+		"prefix": "tnWhoAmI",
+		"body": [
+			"whoami /groups /fo csv |ConvertFrom-Csv |where {\\$_.'group name' -like '*brose\\*' |Sort-Object 'group name'}"
+		],
+		"description": "Who am I as Object"
+	},
+	"Get PDC": {
+		"prefix": "tnPDC",
+		"body": [
+			"\\$DC = (Get-ADDomain).PDCEmulator"
+		],
+		"description": "Get PDC Emulator"
+	},
+	"Powershell5Reqired": {
+		"prefix": "tnPS5",
+		"body": [
+			"If (\\$PSVersionTable.PSEdition -eq 'Core') {",
+			"Write-Warning 'Windows Powershell 5.1 needed - Script stops'",
+			"break",
+			"}"
+		],
+		"description": "Powershell 5 is reqired"
+	},
+	"Region": {
+		"prefix": "tnRegion",
+		"body": [
+			"#######################################################################################",
+			"#region ${1:RegionName}",
+			"",
+			"$TM_SELECTED_TEXT",
+			"$0",
+			"",
+			"#endregion ${1:RegionName}",
+			"#######################################################################################",
+			"",
+		],
+		"description": "Insert Region Stuff"
+	}
+}
