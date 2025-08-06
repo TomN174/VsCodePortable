@@ -19,11 +19,7 @@ Script for Project PsDev
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
-    $IsoRoot = 'D:\ISO-SH',
-    $Proxy = 'http://nat-proxy-eu.brose.net:65432',
-    [Parameter()]
-    [pscredential]
-    $ProxyCreds = $ohnauma
+    $IsoRoot = 'C:\ISO-VsCode'
 )
 #endregion Paramsection
 
@@ -73,7 +69,7 @@ $apiUrl = "https://api.github.com/repos/notepad-plus-plus/notepad-plus-plus/rele
 $headers = @{ "User-Agent" = "PowerShell" }
 
 # Get latest release info
-$response = Invoke-RestMethod -Uri $apiUrl -Headers $headers -ProxyCredential $ProxyCreds -Proxy $Proxy
+$response = Invoke-RestMethod -Uri $apiUrl -Headers $headers 
 $version = $response.tag_name.TrimStart("v")
 $zipPath = "$DownloadPath\npp.$version.portable.x64.zip"
 
@@ -85,7 +81,7 @@ if ($null -ne $asset) {
     
     
     # Download the ZIP
-    Invoke-WebRequest -Uri $downloadUrl -OutFile $zipPath -ProxyCredential $ProxyCreds -Proxy $Proxy
+    Invoke-WebRequest -Uri $downloadUrl -OutFile $zipPath 
     
     # Create extraction directory
     if (-Not (Test-Path -Path $extractPath)) {

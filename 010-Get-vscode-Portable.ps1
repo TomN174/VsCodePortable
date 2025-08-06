@@ -76,15 +76,16 @@ $dataPath = "$extractPath\data"
 $SettingsDestination = "$IsoRoot\vscode\data\user-data\User\settings.json"
 $SnippetDestination = "$IsoRoot\vscode\data\user-data\User\snippets\powershell.json"
 
+# Ensure the download directory exists
 if (-Not (Test-Path -Path $DownloadPath)) {
-    New-Item -ItemType Directory -Path $DownloadPath | Out-Null
+    New-Item -ItemType Directory -Path $DownloadPath -ErrorAction Stop| Out-Null
 }
 
 # Cleanup previous installation
 if (Test-Path $extractPath) {
     Remove-Item -Path $extractPath -Recurse -Force
 }
-break
+# break
 # Download the latest VS Code zip
 # Invoke-WebRequest -Uri $vsCodeUrl -OutFile $VscodeZipPath 
 write-host "Downloading VS Code from $vsCodeUrl" -ForegroundColor Cyan

@@ -19,11 +19,7 @@ Script for Project PsDev
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
-    $IsoRoot = 'D:\ISO-SH',
-    $Proxy = 'http://nat-proxy-eu.brose.net:65432',
-    [Parameter()]
-    [pscredential]
-    $ProxyCreds = $ohnauma
+    $IsoRoot = 'C:\ISO-VsCode'
 )
 #endregion Paramsection
 
@@ -51,6 +47,7 @@ $Log = Get-LogObj
 #endregion StandardObjects
     
 #Script starts here
+
 $DownloadPath = "$IsoRoot\Downloads"
 
 # Ensure TLS 1.2 is used
@@ -63,14 +60,13 @@ $architecture = "64-bit"
 $gitHubApi = "https://api.github.com/repos/git-for-windows/git/releases/latest"
 
 # Get the latest release info
-$response = Invoke-RestMethod -Uri $gitHubApi -ProxyCredential $ProxyCreds -Proxy $Proxy
+$response = Invoke-RestMethod -Uri $gitHubApi 
 
 # Find the correct asset
 $asset = $response.assets | Where-Object { $_.name -like "*$architecture.exe" }
 
 # Download the installer
-# $destination = "$env:TEMP\$($asset.name)"
-Invoke-WebRequest -Uri $asset.browser_download_url -OutFile "$DownloadPath\$($asset.name)" -Proxy $Proxy -ProxyCredential $ProxyCreds
+Invoke-WebRequest -Uri $asset.browser_download_url -OutFile "$DownloadPath\$($asset.name)" 
 
 # Optionally run the installer
 # Start-Process -FilePath $destination -Wait
