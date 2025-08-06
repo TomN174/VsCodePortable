@@ -4,5 +4,11 @@
     "workbench.iconTheme": "vscode-icons",
     "todo-tree.regex.regexCaseSensitive": false,
     "todo-tree.tree.showCountsInTree": true,
-    "todo-tree.general.showActivityBarBadge": true
+    "todo-tree.general.showActivityBarBadge": true,    
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "text": "# Limit the subject line to 50 characters\nCapitalize the subject/description line\nDo not end the subject line with a period\nSeparate the subject from the body with a blank line\nUse the imperative mood in the subject line\nThe subject line should be a single sentence with an action word and a target with some reasoning for the change\n\nUse the body to explain what and why in a friendly kind manner\nSay thank you at the end of the message"
+        }
+    ],
+    "git.enableSmartCommit": true
 }
