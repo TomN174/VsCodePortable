@@ -1,21 +1,24 @@
-<#PSScriptInfo
-.VERSION 1.0.0.0
-.GUID adb3ecbd-fd0a-4157-9f05-fc67b42da769
-.AUTHOR Thomas Naumann 
-.COMPANYNAME Brose Fahrzeugteile SE & Co. Kommanditgesellschaft, Bamberg
-.COPYRIGHT (c) by Thomas Naumann 
-.TAGS Script Repository
-.RELEASENOTES
-2025.05.27_16.54.50 mofified by adminthn
+<#
+.SYNOPSIS
+Downloads and extracts the latest Notepad++ Portable (64-bit) release from GitHub.
 
-#> 
+.DESCRIPTION
+This script automates the process of downloading the latest portable 64-bit version of Notepad++ from its official GitHub releases. It uses the GitHub API to determine the latest release, locates the appropriate ZIP asset, downloads it, and extracts its contents to a specified directory. The script also cleans up any previous installation in the target directory before extraction and saves the version information in a text file.
 
-<# 
-.DESCRIPTION 
-Script for Project PsDev
-#> 
+.PARAMETER IsoRoot
+Specifies the root directory where Notepad++ Portable and its downloads will be stored. Defaults to 'C:\ISO-VsCode'.
 
-##end PSScriptInfo
+.NOTES
+- Requires internet access to fetch releases from GitHub.
+- Overwrites any existing Notepad++ Portable installation in the target directory.
+- Tested with PowerShell 5.1 and later.
+
+.EXAMPLE
+.\030-Get-NotepadPP-Portable.ps1 -IsoRoot 'D:\PortableApps'
+Downloads and extracts the latest Notepad++ Portable to 'D:\PortableApps\NotepadPlusPlus'.
+
+#>
+
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
@@ -23,41 +26,17 @@ param (
 )
 #endregion Paramsection
 
-#region Project Path V 3.0
-[System.Collections.ArrayList]$PathArrayList = $PSScriptRoot.Split('\')
-while (!((Test-Path "$($PathArrayList -join '\')\Readme.md") -and (Test-Path "$($PathArrayList -join '\')\Modules") ) -and ($PathArrayList.Count -gt 0)) {
-    $PathArrayList.RemoveAt($PathArrayList.Count - 1)
-} 
-$ProjectPath = $PathArrayList -join '\'
-#endregion Project Path
-
-#region load project module V3.0
-if ($ProjectPath) {
-    $Modules = Get-ChildItem $ProjectPath\Modules -Directory
-    Import-Module $Modules.FullName -Force #-Verbose 
-}
-#endregion load project module
-
-#region StandardObjects V 3.0
-$Log = Get-LogObj
-# $br = [PSCustomObject] @{
-#     LogFile = "$($Log.ScriptPath)\$($Log.ScriptName)-$($Log.LogDate)-Log.txt"
-#     OutFile = "$($Log.ScriptPath)\$($Log.ScriptName)-$($Log.LogDate).txt"
-# }
-#endregion StandardObjects
-    
-#Script starts here
 
 # $extractPath = "IsoRoot\NotepadPlusPlus$version"
 $DownloadPath = "$IsoRoot\Downloads"
 $extractPath = "$IsoRoot\NotepadPlusPlus"
 
-
+# Ensure the download directory exists
 if (-Not (Test-Path -Path $DownloadPath)) {
     New-Item -ItemType Directory -Path $DownloadPath | Out-Null
 }
 
-
+# Cleanup previous installation
 if (Test-Path $extractPath) {
     Remove-Item -Path $extractPath -Recurse -Force
 }
@@ -100,8 +79,3 @@ else {
 }
 
 
-#Script ends here
-$Log.StopTime = Get-Date
-Write-Host
-Write-Host -ForegroundColor DarkGray "Script Runtime $($Log.StopTime -$Log.StartTime)"
-$br | Out-Null

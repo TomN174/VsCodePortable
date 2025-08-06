@@ -1,21 +1,27 @@
-<#PSScriptInfo
-.VERSION 1.0.0.0
-.GUID fde430bd-0401-4367-aae4-29095ec8afe8
-.AUTHOR Thomas Naumann 
-.COMPANYNAME Brose Fahrzeugteile SE & Co. Kommanditgesellschaft, Bamberg
-.COPYRIGHT (c) by Thomas Naumann 
-.TAGS Script Repository
-.RELEASENOTES
-2025.05.27_17.02.45 mofified by adminthn
+<#
+.SYNOPSIS
+    Automates the download, extraction, and configuration of a portable Visual Studio Code installation with predefined extensions and settings.
 
-#> 
+.DESCRIPTION
+    This script downloads the latest stable release of Visual Studio Code (portable version) for Windows, extracts it to a specified directory, installs a set of useful extensions, and applies custom user settings and PowerShell snippets. It ensures all necessary directories exist, cleans up previous installations, and provides progress feedback throughout the process.
 
-<# 
-.DESCRIPTION 
-Script for Project PsDev
-#> 
+.PARAMETER IsoRoot
+    The root directory where VS Code and related files will be installed. Defaults to 'C:\ISO-VsCode'.
 
-##end PSScriptInfo
+.NOTES
+    - Requires internet access to download VS Code and extensions.
+    - Inspired by LindnerBrewery/Emrys MacInally's VS Code automation scripts.
+    - Tested on Windows platforms.
+
+.LINK
+    https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
+
+.EXAMPLE
+    .\010-Get-vscode-Portable.ps1 -IsoRoot 'D:\VSCodePortable'
+
+    Downloads and sets up VS Code portable in 'D:\VSCodePortable' with specified extensions and settings.
+#>
+
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
@@ -23,31 +29,7 @@ param (
 )
 #endregion Paramsection
 
-# #region Project Path V 3.0
-# [System.Collections.ArrayList]$PathArrayList = $PSScriptRoot.Split('\')
-# while (!((Test-Path "$($PathArrayList -join '\')\Readme.md") -and (Test-Path "$($PathArrayList -join '\')\Modules") ) -and ($PathArrayList.Count -gt 0)) {
-#     $PathArrayList.RemoveAt($PathArrayList.Count - 1)
-# } 
-# $ProjectPath = $PathArrayList -join '\'
-# #endregion Project Path
 
-# #region load project module V3.0
-# if ($ProjectPath) {
-#     $Modules = Get-ChildItem $ProjectPath\Modules -Directory
-#     Import-Module $Modules.FullName -Force #-Verbose 
-# }
-# #endregion load project module
-
-# #region StandardObjects V 3.0
-# $Log = Get-LogObj
-# # $br = [PSCustomObject] @{
-# #     LogFile = "$($Log.ScriptPath)\$($Log.ScriptName)-$($Log.LogDate)-Log.txt"
-# #     OutFile = "$($Log.ScriptPath)\$($Log.ScriptName)-$($Log.LogDate).txt"
-# # }
-# #endregion StandardObjects
-    
-#Script starts here
-. $PSScriptRoot\New-IsoFile.ps1
 Write-Host "IsoRootPAth :$IsoRoot" -ForegroundColor Cyan
 
 
@@ -63,6 +45,7 @@ $extensions = @(
     "TylerLeonhardt.vscode-inline-values-powershell"
     "vscode-icons-team.vscode-icons"
 )
+
 # define sources
 $vsCodeUrl = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive"
 $SnippetSource = "$PSScriptRoot\Config\powershell.json"
@@ -87,7 +70,7 @@ if (Test-Path $extractPath) {
 }
 # break
 # Download the latest VS Code zip
-# Invoke-WebRequest -Uri $vsCodeUrl -OutFile $VscodeZipPath 
+# Invoke-WebRequest -Uri $vsCodeUrl -OutFile $VscodeZipPath -UseBasicParsing
 write-host "Downloading VS Code from $vsCodeUrl" -ForegroundColor Cyan
 
 $Webclient = New-Object net.webclient
@@ -110,6 +93,9 @@ if (-Not (Test-Path $dataPath)) {
 }
 
 # Install extensions
+# inspired by LindnerBrewery/ Emrys MacInally
+# https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
+
 write-host "Installing extensions..." -ForegroundColor Cyan
 if (-Not (Test-Path "$extractPath\bin\code.cmd")) {
     Write-Host "Error: code.cmd not found in $extractPath\bin. Ensure VS Code is extracted correctly." -ForegroundColor Red

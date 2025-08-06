@@ -1,52 +1,29 @@
-<#PSScriptInfo
-.VERSION 1.0.0.0
-.GUID 458ef87e-52ae-4258-8019-19af3afc341a
-.AUTHOR Thomas Naumann 
-.COMPANYNAME Brose Fahrzeugteile SE & Co. Kommanditgesellschaft, Bamberg
-.COPYRIGHT (c) by Thomas Naumann 
-.TAGS Script Repository
-.RELEASENOTES
-2025.05.28_15.34.45 mofified by adminthn
+<#
+.SYNOPSIS
+Downloads the latest 64-bit Git for Windows installer from GitHub.
 
-#> 
+.DESCRIPTION
+This script retrieves the latest release information for Git for Windows from the official GitHub repository, locates the 64-bit installer asset, and downloads it to a specified directory. The script ensures the download path exists and uses PowerShell's web cmdlets to interact with the GitHub API and download the installer.
 
-<# 
-.DESCRIPTION 
-Script for Project PsDev
-#> 
+.PARAMETER IsoRoot
+Specifies the root directory where the installer will be downloaded. Defaults to 'C:\ISO-VsCode'.
 
-##end PSScriptInfo
+.NOTES
+- Requires internet access.
+- Optionally, the installer can be executed after download by uncommenting the relevant line.
+- Ensure TLS 1.2 is enabled if required by your environment.
+
+.EXAMPLE
+.\020-Get-GitGui.ps1 -IsoRoot 'D:\CustomPath'
+Downloads the latest 64-bit Git for Windows installer to 'D:\CustomPath\Downloads'.
+#>
+
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
     $IsoRoot = 'C:\ISO-VsCode'
 )
 #endregion Paramsection
-
-#region Project Path V 3.0
-[System.Collections.ArrayList]$PathArrayList = $PSScriptRoot.Split('\')
-while (!((Test-Path "$($PathArrayList -join '\')\Readme.md") -and (Test-Path "$($PathArrayList -join '\')\Modules") ) -and ($PathArrayList.Count -gt 0)) {
-    $PathArrayList.RemoveAt($PathArrayList.Count - 1)
-} 
-$ProjectPath = $PathArrayList -join '\'
-#endregion Project Path
-
-#region load project module V3.0
-if ($ProjectPath) {
-    $Modules = Get-ChildItem $ProjectPath\Modules -Directory
-    Import-Module $Modules.FullName -Force #-Verbose 
-}
-#endregion load project module
-
-#region StandardObjects V 3.0
-$Log = Get-LogObj
-# $br = [PSCustomObject] @{
-#     LogFile = "$($Log.ScriptPath)\$($Log.ScriptName)-$($Log.LogDate)-Log.txt"
-#     OutFile = "$($Log.ScriptPath)\$($Log.ScriptName)-$($Log.LogDate).txt"
-# }
-#endregion StandardObjects
-    
-#Script starts here
 
 $DownloadPath = "$IsoRoot\Downloads"
 
@@ -70,14 +47,3 @@ Invoke-WebRequest -Uri $asset.browser_download_url -OutFile "$DownloadPath\$($as
 
 # Optionally run the installer
 # Start-Process -FilePath $destination -Wait
-
-
-
-
-
-
-#Script ends here
-$Log.StopTime = Get-Date
-Write-Host
-Write-Host -ForegroundColor DarkGray "Script Runtime $($Log.StopTime -$Log.StartTime)"
-$br | Out-Null
