@@ -3,7 +3,14 @@
     Automates the download, extraction, and configuration of a portable Visual Studio Code installation with predefined extensions and settings.
 
 .DESCRIPTION
-    This script downloads the latest stable release of Visual Studio Code (portable version) for Windows, extracts it to a specified directory, installs a set of useful extensions, and applies custom user settings and PowerShell snippets. It ensures all necessary directories exist, cleans up previous installations, and provides progress feedback throughout the process.
+    This script downloads the latest stable release of Visual Studio Code (portable version) for Windows, 
+    extracts it to a specified directory, installs a set of useful extensions and applies custom user settings and PowerShell snippets. 
+    It ensures all necessary directories exist, cleans up previous installations, and provides progress feedback throughout the process.
+    
+    I was inspired by LindnerBrewery/Emrys MacInally talking on PsConfEU2023 about automating the setup of development environments.
+    see his  github repository:
+    https://github.com/LindnerBrewery/PsConfEU2023_Docker
+    https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
 
 .PARAMETER IsoRoot
     The root directory where VS Code and related files will be installed. Defaults to 'C:\ISO-VsCode'.
@@ -12,9 +19,6 @@
     - Requires internet access to download VS Code and extensions.
     - Inspired by LindnerBrewery/Emrys MacInally's VS Code automation scripts.
     - Tested on Windows platforms.
-
-.LINK
-    https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
 
 .EXAMPLE
     .\010-Get-vscode-Portable.ps1 -IsoRoot 'D:\VSCodePortable'
@@ -61,7 +65,7 @@ $SnippetDestination = "$IsoRoot\vscode\data\user-data\User\snippets\powershell.j
 
 # Ensure the download directory exists
 if (-Not (Test-Path -Path $DownloadPath)) {
-    New-Item -ItemType Directory -Path $DownloadPath -ErrorAction Stop| Out-Null
+    New-Item -ItemType Directory -Path $DownloadPath -ErrorAction Stop | Out-Null
 }
 
 # Cleanup previous installation
@@ -96,12 +100,12 @@ if (-Not (Test-Path $dataPath)) {
 # inspired by LindnerBrewery/ Emrys MacInally
 # https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
 
-write-host "Installing extensions..." -ForegroundColor Cyan
 if (-Not (Test-Path "$extractPath\bin\code.cmd")) {
     Write-Host "Error: code.cmd not found in $extractPath\bin. Ensure VS Code is extracted correctly." -ForegroundColor Red
     exit 1
 }
-# $codeExecutable = "$extractPath\Code.exe"
+
+write-host "Installing extensions..." -ForegroundColor Cyan
 foreach ($ext in $extensions) {
     &  $extractPath\bin\code.cmd "$extractPath\resources\app\out\cli.js" --install-extension $ext --extensions-dir "$dataPath\extensions" --force
 }
