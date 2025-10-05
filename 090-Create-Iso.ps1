@@ -27,8 +27,8 @@
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
-    $IsoRoot = 'C:\ISO-VsCode',
-    $OutputIsoDestinationPath = 'C:\ISO-VsCode-Out'
+    $IsoRoot = 'D:\ISO-VsCode',
+    $OutputIsoDestinationPath = 'D:\ISO-VsCode-Out'
 )
 
 . $PSScriptRoot\New-IsoFile.ps1

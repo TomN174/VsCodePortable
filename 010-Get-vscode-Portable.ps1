@@ -13,7 +13,7 @@
     https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
 
 .PARAMETER IsoRoot
-    The root directory where VS Code and related files will be installed. Defaults to 'C:\ISO-VsCode'.
+    The root directory where VS Code and related files will be installed. Defaults to 'D:\ISO-VsCode'.
 
 .NOTES
     - Requires internet access to download VS Code and extensions.
@@ -29,7 +29,7 @@
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
-    $IsoRoot = 'C:\ISO-VsCode'
+    $IsoRoot = 'D:\ISO-VsCode'
 )
 #endregion Paramsection
 

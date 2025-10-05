@@ -6,7 +6,7 @@ Downloads the latest 64-bit Git for Windows installer from GitHub.
 This script retrieves the latest release information for Git for Windows from the official GitHub repository, locates the 64-bit installer asset, and downloads it to a specified directory. The script ensures the download path exists and uses PowerShell's web cmdlets to interact with the GitHub API and download the installer.
 
 .PARAMETER IsoRoot
-Specifies the root directory where the installer will be downloaded. Defaults to 'C:\ISO-VsCode'.
+Specifies the root directory where the installer will be downloaded. Defaults to 'D:\ISO-VsCode'.
 
 .NOTES
 - Requires internet access.
@@ -21,7 +21,7 @@ Downloads the latest 64-bit Git for Windows installer to 'D:\CustomPath\Download
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
-    $IsoRoot = 'C:\ISO-VsCode'
+    $IsoRoot = 'D:\ISO-VsCode'
 )
 #endregion Paramsection
 

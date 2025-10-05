@@ -6,7 +6,7 @@ Downloads and extracts the latest Notepad++ Portable (64-bit) release from GitHu
 This script automates the process of downloading the latest portable 64-bit version of Notepad++ from its official GitHub releases. It uses the GitHub API to determine the latest release, locates the appropriate ZIP asset, downloads it, and extracts its contents to a specified directory. The script also cleans up any previous installation in the target directory before extraction and saves the version information in a text file.
 
 .PARAMETER IsoRoot
-Specifies the root directory where Notepad++ Portable and its downloads will be stored. Defaults to 'C:\ISO-VsCode'.
+Specifies the root directory where Notepad++ Portable and its downloads will be stored. Defaults to 'D:\ISO-VsCode'.
 
 .NOTES
 - Requires internet access to fetch releases from GitHub.
@@ -22,7 +22,7 @@ Downloads and extracts the latest Notepad++ Portable to 'D:\PortableApps\Notepad
 #region Paramsection V 1.0
 [CmdletBinding(SupportsShouldProcess)]
 param (
-    $IsoRoot = 'C:\ISO-VsCode'
+    $IsoRoot = 'D:\ISO-VsCode'
 )
 #endregion Paramsection
 

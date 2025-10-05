@@ -1,0 +1,7 @@
+{
+    "editor.defaultFormatter": "ms-vscode.powershell",
+    "files.defaultLanguage": "powershell",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}
