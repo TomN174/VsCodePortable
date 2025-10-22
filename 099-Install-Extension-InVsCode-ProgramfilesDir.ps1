@@ -44,7 +44,7 @@ if (-Not (Test-Path "$extractPath\bin\code.cmd")) {
 
 write-host "Installing extensions..." -ForegroundColor Cyan
 # $codeExecutable = "$extractPath\Code.exe"
-foreach ($ext in $extensions) {
-    # &  $extractPath\bin\code.cmd "$extractPath\resources\app\out\cli.js" --install-extension $ext --extensions-dir "$dataPath\extensions" --force
-    &  $extractPath\bin\code.cmd "$extractPath\resources\app\out\cli.js" --install-extension $ext  --force
+foreach ($extension in $extensions) {
+    # &  $extractPath\bin\code.cmd "$extractPath\resources\app\out\cli.js" --install-extension $extension --extensions-dir "$dataPath\extensions" --force
+    &  $extractPath\bin\code.cmd "$extractPath\resources\app\out\cli.js" --install-extension $extension  --force
 }

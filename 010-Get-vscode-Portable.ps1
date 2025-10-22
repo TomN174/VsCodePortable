@@ -96,18 +96,23 @@ if (-Not (Test-Path $dataPath)) {
     write-host "Created data folder at $dataPath" -ForgrundColor Cyan
 }
 
-# Install extensions
-# inspired by LindnerBrewery/ Emrys MacInally
-# https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
-
+# check if code.cmd exists 
 if (-Not (Test-Path "$extractPath\bin\code.cmd")) {
     Write-Host "Error: code.cmd not found in $extractPath\bin. Ensure VS Code is extracted correctly." -ForegroundColor Red
     exit 1
 }
 
+# psedit "$extractPath\bin\code.cmd" # for showing cmd content
+# psedit "$extractPath\resources\app\out\cli.js" # for showing cli.js content
+
+# Install extensions
+# inspired by LindnerBrewery/ Emrys MacInally
+# https://github.com/LindnerBrewery/PsConfEU2023_Docker/blob/main/Demo/install-vscodeserverAndExtensions.ps1
+# Line 57     & $node "$rootPath\out\server-main.js" --install-extension $ex --force
+
 write-host "Installing extensions..." -ForegroundColor Cyan
-foreach ($ext in $extensions) {
-    &  $extractPath\bin\code.cmd "$extractPath\resources\app\out\cli.js" --install-extension $ext --extensions-dir "$dataPath\extensions" --force
+foreach ($extension in $extensions) {
+    &  $extractPath\bin\code.cmd "$extractPath\resources\app\out\cli.js" --install-extension $extension --extensions-dir "$dataPath\extensions" --force
 }
 
 # copy snippets
@@ -127,7 +132,7 @@ if ((Test-Path $SnippetSource)) {
 
 
 # copy VsCode Settings 
-
 Copy-Item -Path $SettingsSource -Destination $SettingsDestination -Force
 write-host "Settings copied to $SettingsDestination" -ForegroundColor Cyan
 
+write-host "VS Code Portable setup completed successfully! 😎" -ForegroundColor Green
