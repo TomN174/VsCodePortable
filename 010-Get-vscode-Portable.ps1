@@ -131,9 +131,3 @@ if ((Test-Path $SnippetSource)) {
 Copy-Item -Path $SettingsSource -Destination $SettingsDestination -Force
 write-host "Settings copied to $SettingsDestination" -ForegroundColor Cyan
 
-
-#Script ends here
-# $Log.StopTime = Get-Date
-# Write-Host
-# Write-Host -ForegroundColor DarkGray "Script Runtime $($Log.StopTime -$Log.StartTime)"
-# $br | Out-Null
