@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Creates an ISO file from a specified source directory using a helper script.
 

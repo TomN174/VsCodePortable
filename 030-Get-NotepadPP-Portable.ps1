@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Downloads and extracts the latest Notepad++ Portable (64-bit) release from GitHub.
 

@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Installs a predefined list of Visual Studio Code extensions using the VS Code CLI.
 

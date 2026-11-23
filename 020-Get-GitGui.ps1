@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Downloads the latest 64-bit Git for Windows installer from GitHub.
 

@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Automates the download, extraction, and configuration of a portable Visual Studio Code installation with predefined extensions and settings.
 
@@ -48,6 +48,7 @@ $extensions = @(
     "tomoki1207.pdf"
     "TylerLeonhardt.vscode-inline-values-powershell"
     "vscode-icons-team.vscode-icons"
+    "utialy.portable-update-button"
 )
 
 # define sources

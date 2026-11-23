@@ -1,0 +1,48 @@
+﻿{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Convert UTF-8 files to BOM (safe)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy", "Bypass",
+        "-NoProfile",
+        "-File", "${workspaceFolder}/scripts/Convert-ToUtf8Bom.ps1",
+        "-workspace", "${workspaceFolder}"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Convert ALL files to UTF-8 BOM (full)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/scripts/Convert-ToUtf8Bom.ps1",
+        "-workspace", "${workspaceFolder}",
+        "-ConvertNonUtf8"
+      ],
+      "group": {
+        "kind": "build"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

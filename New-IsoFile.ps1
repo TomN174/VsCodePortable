@@ -1,4 +1,4 @@
-function New-ISOFile {
+﻿function New-ISOFile {
     <#
     .SYNOPSIS
         Create an ISO file from a source folder.
